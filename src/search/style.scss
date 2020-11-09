@@ -1,0 +1,31 @@
+.search-container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 80rem;
+  text-align: left;
+
+  &__filters,
+  &__results {
+    padding: 2rem;
+  }
+
+  &__filters {
+    flex-basis: 30%;
+  }
+
+  &__results {
+    flex-basis: 70%;
+  }
+}
+
+.results {
+  border: none;
+  border-spacing: none;
+  border-width: none;
+  outline: 0;
+
+  &__header-data,
+  &__data {
+    padding: 0.5rem 1rem;    
+  }
+}
