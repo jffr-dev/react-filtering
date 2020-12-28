@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SearchResult } from '../typings';
+import { SearchResultItem } from '../typings';
 
 const Results: FC<TProps> = ({ items = [] }) => {
   return (
@@ -29,7 +29,7 @@ const Results: FC<TProps> = ({ items = [] }) => {
 };
 
 type TProps = {
-  items: SearchResult[];
+  items: SearchResultItem[];
 };
 
 export default Results;

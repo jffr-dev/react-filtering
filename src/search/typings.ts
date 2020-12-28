@@ -9,7 +9,7 @@ export type FilterOption = {
   value: string;
 };
 
-export type SearchResult = {
+export type SearchResultItem = {
   id: string;
   name: string;
   picture: string;
@@ -22,11 +22,16 @@ export type SearchResult = {
   categories: string[];
 };
 
+export type SearchResult = {
+  items: SearchResultItem[];
+  filters: Filter[];
+}
+
 export type State = {
   allFilters: Filter[];
-  allResults: SearchResult[];
+  allResults: SearchResultItem[];
   activeFilters: string[][];
-  filteredResults: SearchResult[];
+  filteredResults: SearchResultItem[];
 }
 
 export type Action = {

@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { Action, Filter } from '../typings';
+import { Filter } from '../typings';
 
-const Filters: FC<TProps> = ({ filters, dispatch }) => {
+const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
   const { register, getValues } = useForm();
 
   const handleChange = () => {
     const values = getValues();
     const activeFilters = Object.values(values) as string[][];
-    if (activeFilters.length) dispatch({ type: 'SET_FILTER', payload: activeFilters });
+    if (activeFilters.length) setActiveFilter(activeFilters);
   };
 
   return (
@@ -37,7 +37,7 @@ const Filters: FC<TProps> = ({ filters, dispatch }) => {
 
 type TProps = {
   filters: Filter[];
-  dispatch: React.Dispatch<Action>;
+  setActiveFilter: (activeFilters: string[][]) => void;
 };
 
 export default Filters;
