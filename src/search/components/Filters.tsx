@@ -1,19 +1,15 @@
-import { useFormik } from 'formik';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useForm } from 'react-hook-form';
 import { Action, Filter } from '../typings';
 
-
 const Filters: FC<TProps> = ({ filters, dispatch }) => {
-  const formik = useFormik({
-    initialValues: {},
-    onSubmit(values) {},
-  });
+  const { register, getValues } = useForm();
 
-  useEffect(() => {
-    const activeFilters = Object.values(formik.values) as string[][];
-    if (activeFilters.length === 0) return;
-    dispatch({ type: 'SET_FILTER', payload: activeFilters });;
-  }, [formik.values, dispatch]);
+  const handleChange = () => {
+    const values = getValues();
+    const activeFilters = Object.values(values) as string[][];
+    if (activeFilters.length) dispatch({ type: 'SET_FILTER', payload: activeFilters });
+  };
 
   return (
     <form>
@@ -27,7 +23,8 @@ const Filters: FC<TProps> = ({ filters, dispatch }) => {
                 id={option.value}
                 name={filter.label}
                 value={option.id}
-                onChange={formik.handleChange}
+                ref={register}
+                onChange={handleChange}
               />
               {option.value}
             </label>

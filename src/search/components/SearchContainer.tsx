@@ -2,7 +2,7 @@ import React, { FC, useEffect, useReducer } from 'react';
 
 import Api from '../../api';
 import Filters from './Filters';
-import Search from './Search';
+// import Search from './Search';
 import Results from './Results';
 import reducer from '../reducer';
 import { State } from '../typings';
