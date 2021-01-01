@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useReducer } from 'react';
-
+import { State } from '../typings';
 import Api from '../../api';
 import Filters from './Filters';
-// import Search from './Search';
+import Search from './Search';
 import Results from './Results';
 import reducer from '../reducer';
-import { SearchResult, State } from '../typings';
+import * as actions from '../actions';
 
 const initialState: State = {
   activeFilters: [],
@@ -16,31 +16,26 @@ const initialState: State = {
 
 const SearchContainer: FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { allResults, allFilters, filteredResults } = state;
-
-  const setActiveFiltersAction = (activeFilters: string[][]) => dispatch({ type: 'SET_FILTER', payload: activeFilters });
-  const initAction = (payload: SearchResult ) => dispatch({ type: 'INIT', payload });
+  const { allFilters, filteredResults } = state;
 
   useEffect(() => {
     const getData = async () => {
       const response = await Api.getData();
-      initAction({ items: response.items, filters: response.filters })
+      actions.init(dispatch)(response.items, response.filters);
     };
     getData();
   }, []);
 
   return (
-    <>
-      {/* <Search /> */}
-      <div className="search-container">
-        <div className="search-container__filters">
-          <Filters filters={allFilters} setActiveFilter={setActiveFiltersAction} />
-        </div>
-        <div className="search-container__results">
-          <Results items={filteredResults.length > 0 ? filteredResults : allResults} />
-        </div>
+    <div className="search-container">
+      <div className="search-container__filters">
+        <Search setSearchTerm={actions.setSearchTerm(dispatch)} />
+        <Filters filters={allFilters} setActiveFilter={actions.setActiveFilters(dispatch)} />
       </div>
-    </>
+      <div className="search-container__results">
+        <Results items={filteredResults} />
+      </div>
+    </div>
   );
 };
 

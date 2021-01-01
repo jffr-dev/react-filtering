@@ -32,9 +32,10 @@ export type State = {
   allResults: SearchResultItem[];
   activeFilters: string[][];
   filteredResults: SearchResultItem[];
+  term?: string;
 }
 
 export type Action = {
   type: string;
-  payload: any;
+  payload?: any;
 }
