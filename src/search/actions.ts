@@ -1,14 +1,14 @@
 import { Dispatch } from 'react';
-import { Action, Filter, SearchResultItem } from './typings';
+import { Actions, ActionTypes, Filter, SearchResultItem } from './typings';
 
-export const init = (dispatch: Dispatch<Action>) => (items: SearchResultItem[], filters: Filter[]) => dispatch({ type: 'INIT', payload: { items, filters } });
+export const init = (dispatch: Dispatch<Actions>) => (items: SearchResultItem[], filters: Filter[]) => dispatch({ type: ActionTypes.INIT, payload: { items, filters } });
 
-export const setActiveFilters = (dispatch: Dispatch<Action>) => (activeFilters: string[][]) => { 
-  dispatch({ type: 'SET_FILTER', payload: activeFilters });
-  dispatch({ type: 'UPDATE_RESULTS' });
+export const setActiveFilters = (dispatch: Dispatch<Actions>) => (activeFilters: string[][]) => { 
+  dispatch({ type: ActionTypes.SET_FILTER, payload: activeFilters });
+  dispatch({ type: ActionTypes.UPDATE_RESULTS });
 };
 
-export const setSearchTerm = (dispatch: Dispatch<Action>) => (term: string) => {
-  dispatch({ type: 'SET_TERM', payload: term });
-  dispatch({ type: 'UPDATE_RESULTS' });
+export const setSearchTerm = (dispatch: Dispatch<Actions>) => (term: string) => {
+  dispatch({ type: ActionTypes.SET_TERM, payload: term });
+  dispatch({ type: ActionTypes.UPDATE_RESULTS });
 };

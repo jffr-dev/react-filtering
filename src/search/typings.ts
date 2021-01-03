@@ -35,7 +35,20 @@ export type State = {
   term?: string;
 }
 
-export type Action = {
-  type: string;
-  payload?: any;
+export type Action<Type, Payload = undefined> = {
+  type: Type;
+  payload?: Payload;
 }
+
+export enum ActionTypes {
+  INIT,
+  SET_FILTER,
+  UPDATE_RESULTS,
+  SET_TERM
+}
+
+export type InitAction = Action<ActionTypes.INIT, SearchResult>;
+export type SetFilterAction = Action<ActionTypes.SET_FILTER, string[][]>;
+export type UpdateResultsAction = Action<ActionTypes.UPDATE_RESULTS>;
+export type SetTermAction = Action<ActionTypes.SET_TERM, string>;
+export type Actions = InitAction | SetFilterAction | UpdateResultsAction | SetTermAction;
