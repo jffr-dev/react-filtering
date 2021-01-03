@@ -11,24 +11,29 @@ export default function reducer(state: State, action: Actions) {
       };
     }
     case ActionTypes.SET_FILTER: {
-      const removeEmptyArrays = (el: string[]) => el.length > 0;
-      const activeFilters = action.payload?.filter(removeEmptyArrays) as string[][];
+      const activeFilters = Object.fromEntries(
+        Object.entries(action.payload!)
+          .filter(([_, value])=> value.length > 0)
+      );
 
       return {
         ...state,
-        activeFilters,
+        activeFilters
       };
     }
     case ActionTypes.UPDATE_RESULTS: {
       const { allResults, term, activeFilters } = state;
-      const matchSearchTerm = (result: SearchResultItem) => result.name.toLowerCase().includes(term ?? '');
-      const filterActiveCategories = (result: SearchResultItem) => activeFilters.every((activeFilterGroup) =>
-        activeFilterGroup.some((filter) => result.categories.includes(filter))
-      );
+      if (!activeFilters) return state;
+
+      const matchSearchTermFilter = (result: SearchResultItem) => result.name.toLowerCase().includes(term ?? '');
+      const filterActiveCategoriesFilter = (result: SearchResultItem) => 
+        Object.values(activeFilters).every((activeFilterGroup) =>
+          activeFilterGroup.some((filter) => result.categories.includes(filter))
+        );
 
       const filteredResults = allResults
-        .filter(matchSearchTerm)
-        .filter(filterActiveCategories);
+        .filter(matchSearchTermFilter)
+        .filter(filterActiveCategoriesFilter);
 
       return {
         ...state,
@@ -39,7 +44,7 @@ export default function reducer(state: State, action: Actions) {
       return {
         ...state,
         term: action.payload?.toLowerCase()
-      }
+      };
     }
     default:
       return state;

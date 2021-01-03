@@ -8,7 +8,6 @@ import reducer from '../reducer';
 import * as actions from '../actions';
 
 const initialState: State = {
-  activeFilters: [],
   allResults: [],
   allFilters: [],
   filteredResults: [],

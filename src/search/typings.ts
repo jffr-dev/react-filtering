@@ -30,8 +30,8 @@ export type SearchResult = {
 export type State = {
   allFilters: Filter[];
   allResults: SearchResultItem[];
-  activeFilters: string[][];
   filteredResults: SearchResultItem[];
+  activeFilters?: { [key: string]: string[] };
   term?: string;
 }
 
@@ -48,7 +48,7 @@ export enum ActionTypes {
 }
 
 export type InitAction = Action<ActionTypes.INIT, SearchResult>;
-export type SetFilterAction = Action<ActionTypes.SET_FILTER, string[][]>;
+export type SetFilterAction = Action<ActionTypes.SET_FILTER, { [key: string]: string[] }>;
 export type UpdateResultsAction = Action<ActionTypes.UPDATE_RESULTS>;
 export type SetTermAction = Action<ActionTypes.SET_TERM, string>;
 export type Actions = InitAction | SetFilterAction | UpdateResultsAction | SetTermAction;

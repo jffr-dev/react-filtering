@@ -6,9 +6,7 @@ const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
   const { register, getValues } = useForm();
 
   const handleChange = () => {
-    const values = getValues();
-    const activeFilters = Object.values(values) as string[][];
-    if (activeFilters.length) setActiveFilter(activeFilters);
+    setActiveFilter(getValues());
   };
 
   return (
@@ -21,7 +19,7 @@ const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
               <input
                 type="checkbox"
                 id={option.value}
-                name={filter.label}
+                name={filter.id}
                 value={option.id}
                 ref={register}
                 onChange={handleChange}
@@ -37,7 +35,7 @@ const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
 
 type TProps = {
   filters: Filter[];
-  setActiveFilter: (activeFilters: string[][]) => void;
+  setActiveFilter: (activeFilters: { [key: string]: string[] }) => void;
 };
 
 export default Filters;
