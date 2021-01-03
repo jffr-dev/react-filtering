@@ -1,6 +1,6 @@
 import { Actions, ActionTypes, SearchResultItem, State } from './typings';
 
-export default function reducer(state: State, action: Actions) {
+export default function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case ActionTypes.INIT: {
       return {
@@ -21,6 +21,12 @@ export default function reducer(state: State, action: Actions) {
         activeFilters
       };
     }
+    case ActionTypes.SET_TERM: {
+      return {
+        ...state,
+        term: action.payload?.toLowerCase()
+      };
+    }
     case ActionTypes.UPDATE_RESULTS: {
       const { allResults, term, activeFilters } = state;
       if (!activeFilters) return state;
@@ -37,13 +43,28 @@ export default function reducer(state: State, action: Actions) {
 
       return {
         ...state,
-        filteredResults
+        filteredResults,
       };      
     }
-    case ActionTypes.SET_TERM: {
+    case ActionTypes.UPDATE_FILTER_COUNT: {
+      const { allFilters, filteredResults } = state;
+
+      const filterCount = allFilters
+        .map(filter => (
+          filter.options.map(option => ({
+            id: option.id,
+            value: filteredResults.filter(result => result.categories.includes(option.id)).length
+          }))
+        ))
+        .reduce((acc, current) => acc.concat(current), [])
+        .reduce((acc: { [key: string]: number }, current) => {
+          acc[current.id] = current.value;
+          return acc;
+        }, {});
+
       return {
         ...state,
-        term: action.payload?.toLowerCase()
+        filterCount,
       };
     }
     default:

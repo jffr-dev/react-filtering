@@ -10,12 +10,13 @@ import * as actions from '../actions';
 const initialState: State = {
   allResults: [],
   allFilters: [],
+  filterCount: {},
   filteredResults: [],
 };
 
 const SearchContainer: FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { allFilters, filteredResults } = state;
+  const { allFilters, filteredResults, filterCount } = state;
 
   useEffect(() => {
     const getData = async () => {
@@ -29,7 +30,11 @@ const SearchContainer: FC = () => {
     <div className="search-container">
       <div className="search-container__filters">
         <Search setSearchTerm={actions.setSearchTerm(dispatch)} />
-        <Filters filters={allFilters} setActiveFilter={actions.setActiveFilters(dispatch)} />
+        <Filters
+          filters={allFilters}
+          filterCount={filterCount}
+          setActiveFilter={actions.setActiveFilters(dispatch)}
+        />
       </div>
       <div className="search-container__results">
         <Results items={filteredResults} />

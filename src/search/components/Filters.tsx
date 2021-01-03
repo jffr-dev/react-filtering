@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { Filter } from '../typings';
 
-const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
+const Filters: FC<TProps> = ({ filters, filterCount, setActiveFilter }) => {
   const { register, getValues } = useForm();
 
   const handleChange = () => {
@@ -23,8 +23,10 @@ const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
                 value={option.id}
                 ref={register}
                 onChange={handleChange}
+                disabled={!filterCount[option.id]}
               />
               {option.value}
+              ({filterCount[option.id]})
             </label>
           ))}
         </fieldset>
@@ -35,6 +37,7 @@ const Filters: FC<TProps> = ({ filters, setActiveFilter }) => {
 
 type TProps = {
   filters: Filter[];
+  filterCount: { [optionId: string]: number };
   setActiveFilter: (activeFilters: { [key: string]: string[] }) => void;
 };
 

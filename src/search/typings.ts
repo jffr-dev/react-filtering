@@ -31,6 +31,7 @@ export type State = {
   allFilters: Filter[];
   allResults: SearchResultItem[];
   filteredResults: SearchResultItem[];
+  filterCount: { [optionId: string]: number }
   activeFilters?: { [key: string]: string[] };
   term?: string;
 }
@@ -44,11 +45,13 @@ export enum ActionTypes {
   INIT,
   SET_FILTER,
   UPDATE_RESULTS,
-  SET_TERM
+  SET_TERM,
+  UPDATE_FILTER_COUNT
 }
 
 export type InitAction = Action<ActionTypes.INIT, SearchResult>;
 export type SetFilterAction = Action<ActionTypes.SET_FILTER, { [key: string]: string[] }>;
 export type UpdateResultsAction = Action<ActionTypes.UPDATE_RESULTS>;
 export type SetTermAction = Action<ActionTypes.SET_TERM, string>;
-export type Actions = InitAction | SetFilterAction | UpdateResultsAction | SetTermAction;
+export type UpdateFilterCountAction = Action<ActionTypes.UPDATE_FILTER_COUNT>;
+export type Actions = InitAction | SetFilterAction | UpdateResultsAction | SetTermAction | UpdateFilterCountAction;
