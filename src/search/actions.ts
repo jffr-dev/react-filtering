@@ -1,8 +1,8 @@
 import { Dispatch } from 'react';
-import { Actions, ActionTypes, Filter, SearchResultItem } from './typings';
+import { Actions, ActionTypes, SearchResult } from './typings';
 
-export const init = (dispatch: Dispatch<Actions>) => (items: SearchResultItem[], filters: Filter[]) => {
-  dispatch({ type: ActionTypes.INIT, payload: { items, filters } });
+export const init = (dispatch: Dispatch<Actions>) => (searchResult: SearchResult) => {
+  dispatch({ type: ActionTypes.INIT, payload: searchResult });
   dispatch({ type: ActionTypes.UPDATE_FILTER_COUNT });
 };
 

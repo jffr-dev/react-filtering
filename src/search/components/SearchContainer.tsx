@@ -1,11 +1,11 @@
+import axios from 'axios';
 import React, { FC, useEffect, useReducer } from 'react';
-import { State } from '../typings';
-import Api from '../../api';
-import Filters from './Filters';
-import Search from './Search';
-import Results from './Results';
-import reducer from '../reducer';
 import * as actions from '../actions';
+import reducer from '../reducer';
+import { SearchResult, State } from '../typings';
+import Filters from './Filters';
+import Results from './Results';
+import Search from './Search';
 
 const initialState: State = {
   allResults: [],
@@ -20,8 +20,8 @@ const SearchContainer: FC = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await Api.getData();
-      actions.init(dispatch)(response.items, response.filters);
+      const response = await axios.get<SearchResult>('/api/results');
+      actions.init(dispatch)(response.data);
     };
     getData();
   }, []);

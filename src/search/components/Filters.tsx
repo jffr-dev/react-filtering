@@ -23,7 +23,6 @@ const Filters: FC<TProps> = ({ filters, filterCount, setActiveFilter }) => {
                 value={option.id}
                 ref={register}
                 onChange={handleChange}
-                disabled={!filterCount[option.id]}
               />
               {option.value}
               ({filterCount[option.id]})
