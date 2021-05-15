@@ -46,27 +46,6 @@ export default function reducer(state: State, action: Actions): State {
         filteredResults,
       };      
     }
-    case ActionTypes.UPDATE_FILTER_COUNT: {
-      const { allFilters, filteredResults } = state;
-
-      const filterCount = allFilters
-        .map(filter => (
-          filter.options.map(option => ({
-            id: option.id,
-            value: filteredResults.filter(result => result.categories.includes(option.id)).length
-          }))
-        ))
-        .reduce((acc, current) => acc.concat(current), [])
-        .reduce((acc: { [key: string]: number }, current) => {
-          acc[current.id] = current.value;
-          return acc;
-        }, {});
-
-      return {
-        ...state,
-        filterCount,
-      };
-    }
     default:
       return state;
   }

@@ -10,13 +10,12 @@ import Search from './Search';
 const initialState: State = {
   allResults: [],
   allFilters: [],
-  filterCount: {},
   filteredResults: [],
 };
 
 const SearchContainer: FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { allFilters, filteredResults, filterCount } = state;
+  const { allFilters, filteredResults } = state;
 
   useEffect(() => {
     const getData = async () => {
@@ -32,7 +31,6 @@ const SearchContainer: FC = () => {
         <Search setSearchTerm={actions.setSearchTerm(dispatch)} />
         <Filters
           filters={allFilters}
-          filterCount={filterCount}
           setActiveFilter={actions.setActiveFilters(dispatch)}
         />
       </div>
